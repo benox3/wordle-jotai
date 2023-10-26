@@ -23,35 +23,24 @@ export const currentRowIndexAtom = atom(0);
 
 export const lettersUsedAtom = atom({});
 
-export function createRowAtom() {
-  const currentWordAtom = atom("");
-  const setLetterAtom = atom(null, (_, set, letter: string) => {
-    set(currentWordAtom, currentWord => {
-      console.log(currentWord.length);
-      return `${currentWord}${letter}`;
-    });
-  });
-
-  const deleteLetterAtom = atom(null, (_, set) => {
-    set(currentWordAtom, currentWord => currentWord.slice(0, currentWord.length - 1));
-  });
-
-  return {
-    currentWordAtom,
-    setLetterAtom,
-    deleteLetterAtom,
-  };
-}
-
 const getValidationResult = (actualWord: string, testWord: string): ValidationResult[] => {
   if (WORDS.indexOf(testWord) < 0) {
     return [];
   }
-  return testWord.split("").map((letter, index) => {
+  const claimed = new Array(actualWord.length);
+  const testLetters = testWord.split("");
+  const actualLetters = actualWord.split("");
+  testLetters.forEach((letter, i) => (claimed[i] = letter === actualLetters[i]));
+
+  return testLetters.map((letter, index) => {
     if (actualWord[index] === letter) {
       return ValidationResult.PerfectLetter;
     }
-    if (actualWord.indexOf(letter) >= 0) {
+    const matchedIndex = actualLetters.findIndex(
+      (actualLetter, i) => actualLetter === letter && !claimed[i]
+    );
+    if (matchedIndex !== -1) {
+      claimed[matchedIndex] = true;
       return ValidationResult.CorrectLetter;
     }
     return ValidationResult.WrongLetter;
