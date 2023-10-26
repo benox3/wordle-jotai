@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Keyboard from "./Keyboard";
 import Row from "./Row";
-import { useAtomValue, useUpdateAtom } from "jotai/utils";
+import { useAtomValue, useSetAtom } from "jotai";
 import { currentRowAtom, numberOfRowsAtom } from "./store";
 import { LOWER_ALPHABET, UPPER_ALPHABET } from "./constants";
 import BindKeys from "react-bind-keys";
@@ -12,9 +12,9 @@ export default function GameContainer() {
   const { performWordValidationAtom, setLetterAtom, deleteLetterAtom } =
     useAtomValue(currentRowAtom);
 
-  const performWordValidation = useUpdateAtom(performWordValidationAtom);
-  const deleteLetter = useUpdateAtom(deleteLetterAtom);
-  const setLetter = useUpdateAtom(setLetterAtom);
+  const performWordValidation = useSetAtom(performWordValidationAtom);
+  const deleteLetter = useSetAtom(deleteLetterAtom);
+  const setLetter = useSetAtom(setLetterAtom);
 
   const keyHandlers = {
     SUBMIT: performWordValidation,
