@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import React, { useEffect, useRef } from "react";
 import { ValidationResult } from "./constants";
-import { currentWordAtom } from "./store";
+// import { currentWordAtom } from "./store";
 
 export default function ({
   isActive,

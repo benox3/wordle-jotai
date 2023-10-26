@@ -9,11 +9,8 @@ import BindKeys from "react-bind-keys";
 export default function GameContainer() {
   const containerRef = useRef<HTMLDivElement>(null);
   const numberOfRows = useAtomValue(numberOfRowsAtom);
-  const {
-    performWordValidationAtom,
-    setLetterAtom,
-    deleteLetterAtom,
-  } = useAtomValue(currentRowAtom);
+  const { performWordValidationAtom, setLetterAtom, deleteLetterAtom } =
+    useAtomValue(currentRowAtom);
 
   const performWordValidation = useUpdateAtom(performWordValidationAtom);
   const deleteLetter = useUpdateAtom(deleteLetterAtom);
@@ -25,8 +22,7 @@ export default function GameContainer() {
     SET_LETTER: (e: React.KeyboardEvent) => {
       setLetter(e.key);
     },
-    NOOP: () => {
-    },
+    NOOP: () => {},
   };
 
   const keyMap = {

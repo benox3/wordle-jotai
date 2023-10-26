@@ -5,12 +5,9 @@ import LetterSlot from "./LetterSlot";
 import { getAtomForRowIndex } from "./store";
 
 function Row({ index }: { index: number }) {
-  const {
-    currentWordAtom,
-    setLetterAtom,
-    deleteLetterAtom,
-    validationResultAtom,
-  } = useAtomValue(useMemo(() => getAtomForRowIndex(index), [index]));
+  const { currentWordAtom, setLetterAtom, deleteLetterAtom, validationResultAtom } = useAtomValue(
+    useMemo(() => getAtomForRowIndex(index), [index])
+  );
 
   const deleteLetter = useUpdateAtom(deleteLetterAtom);
   const setLetter = useUpdateAtom(setLetterAtom);
@@ -18,9 +15,7 @@ function Row({ index }: { index: number }) {
   const validationResult = useAtomValue(validationResultAtom);
 
   return (
-    <div
-      style={{ display: "flex", outline: "none" }}
-    >
+    <div style={{ display: "flex", outline: "none" }}>
       {[...new Array(ALLOWED_LETTERS)].map((_, letterSlotIndex) => {
         return (
           <LetterSlot
